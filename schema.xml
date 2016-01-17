@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="wordpress" defaultIdMethod="native">
+  <table name="wp_commentmeta" idMethod="native" phpName="WpCommentmeta">
+    <column name="meta_id" phpName="MetaId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="comment_id" phpName="CommentId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="meta_key" phpName="MetaKey" type="VARCHAR" size="255"/>
+    <column name="meta_value" phpName="MetaValue" type="CLOB"/>
+    <index name="comment_id">
+      <index-column name="comment_id"/>
+    </index>
+    <index name="meta_key">
+      <index-column name="meta_key" size="191"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_comments" idMethod="native" phpName="WpComments">
+    <column name="comment_ID" phpName="CommentId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="comment_post_ID" phpName="CommentPostId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="comment_author" phpName="CommentAuthor" type="VARCHAR" required="true"/>
+    <column name="comment_author_email" phpName="CommentAuthorEmail" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="comment_author_url" phpName="CommentAuthorUrl" type="VARCHAR" size="200" required="true" defaultValue=""/>
+    <column name="comment_author_IP" phpName="CommentAuthorIp" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="comment_date" phpName="CommentDate" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="comment_date_gmt" phpName="CommentDateGmt" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="comment_content" phpName="CommentContent" type="LONGVARCHAR" required="true"/>
+    <column name="comment_karma" phpName="CommentKarma" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="comment_approved" phpName="CommentApproved" type="VARCHAR" size="20" required="true" defaultValue="1"/>
+    <column name="comment_agent" phpName="CommentAgent" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="comment_type" phpName="CommentType" type="VARCHAR" size="20" required="true" defaultValue=""/>
+    <column name="comment_parent" phpName="CommentParent" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="user_id" phpName="UserId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <index name="comment_post_ID">
+      <index-column name="comment_post_ID"/>
+    </index>
+    <index name="comment_approved_date_gmt">
+      <index-column name="comment_approved"/>
+      <index-column name="comment_date_gmt"/>
+    </index>
+    <index name="comment_date_gmt">
+      <index-column name="comment_date_gmt"/>
+    </index>
+    <index name="comment_parent">
+      <index-column name="comment_parent"/>
+    </index>
+    <index name="comment_author_email">
+      <index-column name="comment_author_email" size="10"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_links" idMethod="native" phpName="WpLinks">
+    <column name="link_id" phpName="LinkId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="link_url" phpName="LinkUrl" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="link_name" phpName="LinkName" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="link_image" phpName="LinkImage" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="link_target" phpName="LinkTarget" type="VARCHAR" size="25" required="true" defaultValue=""/>
+    <column name="link_description" phpName="LinkDescription" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="link_visible" phpName="LinkVisible" type="VARCHAR" size="20" required="true" defaultValue="Y"/>
+    <column name="link_owner" phpName="LinkOwner" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="1"/>
+    <column name="link_rating" phpName="LinkRating" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="link_updated" phpName="LinkUpdated" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="link_rel" phpName="LinkRel" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="link_notes" phpName="LinkNotes" type="LONGVARCHAR" required="true"/>
+    <column name="link_rss" phpName="LinkRss" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <index name="link_visible">
+      <index-column name="link_visible"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_options" idMethod="native" phpName="WpOptions">
+    <column name="option_id" phpName="OptionId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="option_name" phpName="OptionName" type="VARCHAR" size="64" required="true" defaultValue=""/>
+    <column name="option_value" phpName="OptionValue" type="CLOB" required="true"/>
+    <column name="autoload" phpName="Autoload" type="VARCHAR" size="20" required="true" defaultValue="yes"/>
+    <unique name="option_name">
+      <unique-column name="option_name"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_postmeta" idMethod="native" phpName="WpPostmeta">
+    <column name="meta_id" phpName="MetaId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="post_id" phpName="PostId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="meta_key" phpName="MetaKey" type="VARCHAR" size="255"/>
+    <column name="meta_value" phpName="MetaValue" type="CLOB"/>
+    <index name="post_id">
+      <index-column name="post_id"/>
+    </index>
+    <index name="meta_key">
+      <index-column name="meta_key" size="191"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_posts" idMethod="native" phpName="WpPosts">
+    <column name="ID" phpName="Id" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="post_author" phpName="PostAuthor" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="post_date" phpName="PostDate" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="post_date_gmt" phpName="PostDateGmt" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="post_content" phpName="PostContent" type="CLOB" required="true"/>
+    <column name="post_title" phpName="PostTitle" type="LONGVARCHAR" required="true"/>
+    <column name="post_excerpt" phpName="PostExcerpt" type="LONGVARCHAR" required="true"/>
+    <column name="post_status" phpName="PostStatus" type="VARCHAR" size="20" required="true" defaultValue="publish"/>
+    <column name="comment_status" phpName="CommentStatus" type="VARCHAR" size="20" required="true" defaultValue="open"/>
+    <column name="ping_status" phpName="PingStatus" type="VARCHAR" size="20" required="true" defaultValue="open"/>
+    <column name="post_password" phpName="PostPassword" type="VARCHAR" size="20" required="true" defaultValue=""/>
+    <column name="post_name" phpName="PostName" type="VARCHAR" size="200" required="true" defaultValue=""/>
+    <column name="to_ping" phpName="ToPing" type="LONGVARCHAR" required="true"/>
+    <column name="pinged" phpName="Pinged" type="LONGVARCHAR" required="true"/>
+    <column name="post_modified" phpName="PostModified" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="post_modified_gmt" phpName="PostModifiedGmt" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="post_content_filtered" phpName="PostContentFiltered" type="CLOB" required="true"/>
+    <column name="post_parent" phpName="PostParent" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="guid" phpName="Guid" type="VARCHAR" size="255" required="true" defaultValue=""/>
+    <column name="menu_order" phpName="MenuOrder" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="post_type" phpName="PostType" type="VARCHAR" size="20" required="true" defaultValue="post"/>
+    <column name="post_mime_type" phpName="PostMimeType" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="comment_count" phpName="CommentCount" type="BIGINT" required="true" defaultValue="0"/>
+    <index name="post_name">
+      <index-column name="post_name" size="191"/>
+    </index>
+    <index name="type_status_date">
+      <index-column name="post_type"/>
+      <index-column name="post_status"/>
+      <index-column name="post_date"/>
+      <index-column name="ID"/>
+    </index>
+    <index name="post_parent">
+      <index-column name="post_parent"/>
+    </index>
+    <index name="post_author">
+      <index-column name="post_author"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_term_relationships" idMethod="native" phpName="WpTermRelationships">
+    <column name="object_id" phpName="ObjectId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" required="true" defaultValue="0"/>
+    <column name="term_taxonomy_id" phpName="TermTaxonomyId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" required="true" defaultValue="0"/>
+    <column name="term_order" phpName="TermOrder" type="INTEGER" required="true" defaultValue="0"/>
+    <index name="term_taxonomy_id">
+      <index-column name="term_taxonomy_id"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_term_taxonomy" idMethod="native" phpName="WpTermTaxonomy">
+    <column name="term_taxonomy_id" phpName="TermTaxonomyId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="term_id" phpName="TermId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="taxonomy" phpName="Taxonomy" type="VARCHAR" size="32" required="true" defaultValue=""/>
+    <column name="description" phpName="Description" type="CLOB" required="true"/>
+    <column name="parent" phpName="Parent" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="count" phpName="Count" type="BIGINT" required="true" defaultValue="0"/>
+    <index name="taxonomy">
+      <index-column name="taxonomy"/>
+    </index>
+    <unique name="term_id_taxonomy">
+      <unique-column name="term_id"/>
+      <unique-column name="taxonomy"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_terms" idMethod="native" phpName="WpTerms">
+    <column name="term_id" phpName="TermId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="name" phpName="Name" type="VARCHAR" size="200" required="true" defaultValue=""/>
+    <column name="slug" phpName="Slug" type="VARCHAR" size="200" required="true" defaultValue=""/>
+    <column name="term_group" phpName="TermGroup" type="BIGINT" size="10" required="true" defaultValue="0"/>
+    <index name="slug">
+      <index-column name="slug" size="191"/>
+    </index>
+    <index name="name">
+      <index-column name="name" size="191"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_usermeta" idMethod="native" phpName="WpUsermeta">
+    <column name="umeta_id" phpName="UmetaId" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="user_id" phpName="UserId" type="BIGINT" sqlType="bigint(20) unsigned" required="true" defaultValue="0"/>
+    <column name="meta_key" phpName="MetaKey" type="VARCHAR" size="255"/>
+    <column name="meta_value" phpName="MetaValue" type="CLOB"/>
+    <index name="user_id">
+      <index-column name="user_id"/>
+    </index>
+    <index name="meta_key">
+      <index-column name="meta_key" size="191"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="wp_users" idMethod="native" phpName="WpUsers">
+    <column name="ID" phpName="Id" type="BIGINT" sqlType="bigint(20) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="user_login" phpName="UserLogin" type="VARCHAR" size="60" required="true" defaultValue=""/>
+    <column name="user_pass" phpName="UserPass" type="VARCHAR" size="64" required="true" defaultValue=""/>
+    <column name="user_nicename" phpName="UserNicename" type="VARCHAR" size="50" required="true" defaultValue=""/>
+    <column name="user_email" phpName="UserEmail" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="user_url" phpName="UserUrl" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="user_registered" phpName="UserRegistered" type="TIMESTAMP" required="true" defaultValue="0000-00-00 00:00:00"/>
+    <column name="user_activation_key" phpName="UserActivationKey" type="VARCHAR" size="60" required="true" defaultValue=""/>
+    <column name="user_status" phpName="UserStatus" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="display_name" phpName="DisplayName" type="VARCHAR" size="250" required="true" defaultValue=""/>
+    <index name="user_login_key">
+      <index-column name="user_login"/>
+    </index>
+    <index name="user_nicename">
+      <index-column name="user_nicename"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>
