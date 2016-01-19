@@ -33,16 +33,16 @@ return [
                     'adapter'    => 'mysql',
                     'classname'  => 'Propel\Runtime\Connection\ConnectionWrapper',
                     'dsn'        => 'mysql:host=localhost:3306;dbname=bookstore',
-                    'user'       => 'root',
-                    'password'   => '12345678',
+                    'user'       => 'username',
+                    'password'   => 'password',
                     'attributes' => []
                 ],
                 'wordpress' => [
                     'adapter'    => 'mysql',
                     'classname'  => 'Propel\Runtime\Connection\ConnectionWrapper',
                     'dsn'        => 'mysql:host=localhost:3306;dbname=wordpress',
-                    'user'       => 'root',
-                    'password'   => '12345678',
+                    'user'       => 'username',
+                    'password'   => 'password',
                     'attributes' => []
                 ]
             ]
@@ -58,6 +58,7 @@ return [
     ]
 ];
 ```
+*Change database username and password according to your own installation*
 *Notice that I created 2 connections. You can create as many as you want. Now if you have a schema file, put it on the same level as the propel.php file. I put both in the project root and on the same level as the vendor directory.*
 
 **How to generate Models from generated schema:**
